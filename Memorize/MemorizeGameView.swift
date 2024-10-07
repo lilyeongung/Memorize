@@ -8,16 +8,13 @@
 import SwiftUI
 
 struct MemorizeGameView: View {
+    let emojis: Array<String> = ["👻", "🎃", "🕷️", "😈", "😈"]
+    
     var body: some View {
-        
         HStack {
-            CardView()
-            
-            CardView()
-            
-            CardView()
-            
-            CardView()
+            ForEach(emojis.indices, id: \.self) { index in
+                CardView(content: emojis[index])
+            }
         }
         .foregroundStyle(.red)
         .padding()
@@ -26,8 +23,10 @@ struct MemorizeGameView: View {
 }
 
 struct CardView: View {
-    // @State creates a pointer to isFaceUp
-    @State var isFaceUp = false
+    let content: String
+    // @State creates a pointer to isFaceUp, we're going to replace this later in our Game Logic files
+    @State var isFaceUp = true
+    
     
     var body: some View {
         ZStack {
@@ -37,7 +36,7 @@ struct CardView: View {
                 base.fill(.white)
                 base.strokeBorder(lineWidth: 2)
                 
-                Text("👻").font(.largeTitle)
+                Text(content).font(.largeTitle)
                 
             } else {
                 base.fill()
